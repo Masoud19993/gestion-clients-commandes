@@ -1,0 +1,39 @@
+package com.store.gestion_clients_commandes.service;
+
+import com.store.gestion_clients_commandes.model.Client;
+import com.store.gestion_clients_commandes.model.Commande;
+import com.store.gestion_clients_commandes.repository.ClientRepository;
+import com.store.gestion_clients_commandes.repository.CommandeRepository;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+
+@Service
+public class CommandeService {
+
+    private final CommandeRepository commandeRepository;
+    private final ClientRepository clientRepository;
+
+    public CommandeService(CommandeRepository commandeRepository, ClientRepository clientRepository) {
+        this.commandeRepository = commandeRepository;
+        this.clientRepository = clientRepository;
+    }
+
+    public Commande ajouterCommande(Long clientId, Commande commande) {
+        Client client = clientRepository.findById(clientId)
+                .orElseThrow(() -> new RuntimeException("Client non trouvé avec l'id : " + clientId));
+
+        commande.setClient(client);
+
+        return commandeRepository.save(commande);
+    }
+
+    public List<Commande> listerCommandes() {
+        return commandeRepository.findAll();
+    }
+
+    public Optional<Commande> recupererCommandeParId(Long id) {
+        return commandeRepository.findById(id);
+    }
+}
