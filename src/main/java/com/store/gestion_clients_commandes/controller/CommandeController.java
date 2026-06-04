@@ -1,10 +1,15 @@
 package com.store.gestion_clients_commandes.controller;
 
+<<<<<<< HEAD
 import com.store.gestion_clients_commandes.exception.ResourceNotFoundException;
+=======
+import com.store.gestion_clients_commandes.dto.CommandeRequest;
+>>>>>>> main
 import com.store.gestion_clients_commandes.model.Commande;
 import com.store.gestion_clients_commandes.service.CommandeService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import jakarta.validation.Valid;
 
 import java.util.List;
 
@@ -21,9 +26,13 @@ public class CommandeController {
     @PostMapping("/client/{clientId}")
     public Commande ajouterCommande(
             @PathVariable Long clientId,
-            @RequestBody Commande commande
+            @Valid @RequestBody CommandeRequest commandeRequest
     ) {
-        return commandeService.ajouterCommande(clientId, commande);
+        Commande commande = new Commande();
+        commande.setProduit(commandeRequest.getProduit());
+        commande.setQuantite(commandeRequest.getQuantite());
+    	
+    	return commandeService.ajouterCommande(clientId, commande);
     }
 
     @GetMapping

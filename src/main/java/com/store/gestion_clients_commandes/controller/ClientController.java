@@ -1,9 +1,14 @@
 package com.store.gestion_clients_commandes.controller;
 
+<<<<<<< HEAD
 import com.store.gestion_clients_commandes.exception.ResourceNotFoundException;
+=======
+import com.store.gestion_clients_commandes.dto.ClientRequest;
+>>>>>>> main
 import com.store.gestion_clients_commandes.model.Client;
 import com.store.gestion_clients_commandes.service.ClientService;
 import org.springframework.web.bind.annotation.*;
+import jakarta.validation.Valid;
 
 import java.util.List;
 
@@ -18,8 +23,12 @@ public class ClientController {
     }
 
     @PostMapping
-    public Client ajouterClient(@RequestBody Client client) {
-        return clientService.ajouterClient(client);
+    public Client ajouterClient(@Valid @RequestBody ClientRequest clientRequest) {
+        Client client = new Client();
+        client.setNom(clientRequest.getNom());
+        client.setEmail(clientRequest.getEmail());
+    	
+    	return clientService.ajouterClient(client);
     }
 
     @GetMapping
