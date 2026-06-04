@@ -1,5 +1,6 @@
 package com.store.gestion_clients_commandes.service;
 
+import com.store.gestion_clients_commandes.exception.ResourceNotFoundException;
 import com.store.gestion_clients_commandes.model.Client;
 import com.store.gestion_clients_commandes.model.Commande;
 import com.store.gestion_clients_commandes.repository.ClientRepository;
@@ -22,7 +23,7 @@ public class CommandeService {
 
     public Commande ajouterCommande(Long clientId, Commande commande) {
         Client client = clientRepository.findById(clientId)
-                .orElseThrow(() -> new RuntimeException("Client non trouvé avec l'id : " + clientId));
+                .orElseThrow(() -> new ResourceNotFoundException("Client non trouvé avec l'id : " + clientId));
 
         commande.setClient(client);
 

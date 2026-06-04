@@ -1,5 +1,6 @@
 package com.store.gestion_clients_commandes.controller;
 
+import com.store.gestion_clients_commandes.exception.ResourceNotFoundException;
 import com.store.gestion_clients_commandes.model.Commande;
 import com.store.gestion_clients_commandes.service.CommandeService;
 import org.springframework.http.ResponseEntity;
@@ -31,9 +32,8 @@ public class CommandeController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Commande> recupererCommandeParId(@PathVariable Long id) {
+    public Commande recupererCommandeParId(@PathVariable Long id) {
         return commandeService.recupererCommandeParId(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+        		.orElseThrow(() -> new ResourceNotFoundException("Commande non trouvée avec l'id : " + id));
     }
 }
