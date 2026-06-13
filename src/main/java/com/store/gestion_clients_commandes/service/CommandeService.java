@@ -37,4 +37,12 @@ public class CommandeService {
     public Optional<Commande> recupererCommandeParId(Long id) {
         return commandeRepository.findById(id);
     }
+    
+    public void supprimerCommande(Long id) {
+        if (!commandeRepository.existsById(id)) {
+            throw new ResourceNotFoundException("Commande non trouvée avec l'id : " + id);
+        }
+
+        commandeRepository.deleteById(id);
+    }
 }

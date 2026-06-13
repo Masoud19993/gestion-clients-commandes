@@ -3,6 +3,7 @@ package com.store.gestion_clients_commandes.controller;
 import com.store.gestion_clients_commandes.dto.AuthRequest;
 import com.store.gestion_clients_commandes.dto.AuthResponse;
 import com.store.gestion_clients_commandes.dto.MessageResponse;
+import com.store.gestion_clients_commandes.dto.RegisterRequest;
 import com.store.gestion_clients_commandes.model.AppUser;
 import com.store.gestion_clients_commandes.security.JwtService;
 

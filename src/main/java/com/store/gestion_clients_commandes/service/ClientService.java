@@ -1,5 +1,6 @@
 package com.store.gestion_clients_commandes.service;
 
+import com.store.gestion_clients_commandes.exception.ResourceNotFoundException;
 import com.store.gestion_clients_commandes.model.Client;
 import com.store.gestion_clients_commandes.repository.ClientRepository;
 import org.springframework.stereotype.Service;
@@ -26,5 +27,13 @@ public class ClientService {
 
     public Optional<Client> recupererClientParId(Long id) {
         return clientRepository.findById(id);
+    }
+    
+    public void supprimerClient(Long id) {
+        if (!clientRepository.existsById(id)) {
+            throw new ResourceNotFoundException("Client non trouvé avec l'id : " + id);
+        }
+
+        clientRepository.deleteById(id);
     }
 }

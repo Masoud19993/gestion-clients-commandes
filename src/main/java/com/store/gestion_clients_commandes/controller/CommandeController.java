@@ -4,6 +4,8 @@ import com.store.gestion_clients_commandes.exception.ResourceNotFoundException;
 import com.store.gestion_clients_commandes.dto.CommandeRequest;
 import com.store.gestion_clients_commandes.model.Commande;
 import com.store.gestion_clients_commandes.service.CommandeService;
+
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import jakarta.validation.Valid;
 
@@ -40,5 +42,11 @@ public class CommandeController {
     public Commande recupererCommandeParId(@PathVariable Long id) {
         return commandeService.recupererCommandeParId(id)
         		.orElseThrow(() -> new ResourceNotFoundException("Commande non trouvée avec l'id : " + id));
+    }
+    
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> supprimerCommande(@PathVariable Long id) {
+        commandeService.supprimerCommande(id);
+        return ResponseEntity.noContent().build();
     }
 }
