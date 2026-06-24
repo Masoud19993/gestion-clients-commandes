@@ -4,6 +4,8 @@ import com.store.gestion_clients_commandes.exception.ResourceNotFoundException;
 import com.store.gestion_clients_commandes.dto.ClientRequest;
 import com.store.gestion_clients_commandes.model.Client;
 import com.store.gestion_clients_commandes.service.ClientService;
+
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import jakarta.validation.Valid;
 
@@ -37,5 +39,11 @@ public class ClientController {
     public Client recupererClientParId(@PathVariable Long id) {
         return clientService.recupererClientParId(id)
         		.orElseThrow(() -> new ResourceNotFoundException("Client non trouvé avec l'id : " + id));
+    }
+    
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> supprimerClient(@PathVariable Long id) {
+        clientService.supprimerClient(id);
+        return ResponseEntity.noContent().build();
     }
 }
